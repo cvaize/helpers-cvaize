@@ -2,6 +2,7 @@ const fs = require('fs');
 const Path = require('path');
 const rimraf = require("rimraf");
 
+const startFolder = '/var/www/sites';
 const removeFiles = [
     'node_modules',
     'vendor',
@@ -41,7 +42,7 @@ const recursive = function(path) {
     }
 };
 
-recursive('/var/www/sites');
+recursive(startFolder);
 console.log('Final statistics');
 
 for (let i = 0; i < removeFiles.length; i++) {
