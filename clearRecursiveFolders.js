@@ -2,7 +2,7 @@ const fs = require('fs');
 const Path = require('path');
 const rimraf = require("rimraf");
 
-const startFolder = '/var/www/sites/evrazen.ru';
+const startFolder = '/var/www/sites';
 const removeFiles = [
     'node_modules',
     'vendor',
