@@ -3,21 +3,18 @@ const Path = require('path');
 const rimraf = require("rimraf");
 
 const startFolder = '/var/www/sites';
-const removeFiles = [
-    'node_modules',
-    'vendor',
-    '.idea',
-    'package-lock.json',
-    'composer.lock',
-];
+const removeFiles = {
+    'node_modules': {count: 0},
+    'vendor': {count: 0, if(curPath, files){
+        return files.indexOf('composer.json') !== -1
+        }},
+    '.idea': {count: 0},
+    'package-lock.json': {count: 0},
+    'composer.lock': {count: 0},
+};
+
 const ignoreFolders = [ // ignoreFolderName or /var/www/sites/ignoreFolderName
 ];
-
-const countRemoveFiles = {};
-
-for (let i = 0; i < removeFiles.length; i++) {
-    countRemoveFiles[removeFiles[i]] = 0;
-}
 
 const recursive = function(path) {
     if (fs.existsSync(path)) {
@@ -25,24 +22,26 @@ const recursive = function(path) {
         for (let index = 0; index < files.length; index++) {
             let file = files[index];
             const curPath = Path.join(path, file);
-            let removeIndex = removeFiles.indexOf(file);
+            let removeFile = removeFiles[file];
 
             if(ignoreFolders.indexOf(curPath) !== -1 || ignoreFolders.indexOf(file) !== -1){
                 continue;
             }
 
             if (fs.lstatSync(curPath).isDirectory()) { // recurse
-                console.log(curPath);
-                if(removeIndex === -1){
+                // console.log(curPath);
+                if(!removeFile){
                     recursive(curPath);
                 }
             }
 
-            if(removeIndex !== -1){
-                rimraf.sync(curPath);
+            if(removeFile){
+                if(!removeFile.if || removeFile.if(curPath, files)){
+                    rimraf.sync(curPath);
+                }
 
-                countRemoveFiles[file]++;
-                console.log('Removed "'+file+'" count='+countRemoveFiles[file])
+                removeFiles[file].count++;
+                console.log('Removed "'+file+'" count='+removeFiles[file].count)
             }
         }
     }
@@ -51,7 +50,7 @@ const recursive = function(path) {
 recursive(startFolder);
 console.log('Final statistics');
 
-for (let i = 0; i < removeFiles.length; i++) {
-    console.log(removeFiles[i] + ' = ' + countRemoveFiles[removeFiles[i]]);
+for (const fileKey in removeFiles) {
+    console.log(fileKey + ' = ' + removeFiles[fileKey].count);
 }
 
