@@ -6,8 +6,8 @@ const compressImages = require("compress-images");
 
 const rootPath = '/var/www/sites/api.cromi.ru/';
 
-const inputPath = "original-storage-images/";
-const outputPath = "storage/";
+const inputPath = "original-storage-images/app/uploads/public/";
+const outputPath = "storage/app/uploads/public/";
 
 const INPUT = rootPath+inputPath;
 const OUTPUT = rootPath+outputPath;
