@@ -4,7 +4,7 @@ const makeDir = require('make-dir');
 const rimraf = require("rimraf");
 const compressImages = require("compress-images");
 
-const rootPath = '/var/www/sites/api.cromi.ru/';
+const rootPath = '/var/www/sites/test.ru/';
 
 const inputPath = "original-storage-images/app/uploads/public/";
 const outputPath = "storage/app/uploads/public/";
