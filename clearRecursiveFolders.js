@@ -8,7 +8,7 @@ const removeFiles = {
     'vendor': {count: 0, if(curPath, files){
         return files.indexOf('composer.json') !== -1
         }},
-    '.idea': {count: 0},
+    // '.idea': {count: 0},
     'package-lock.json': {count: 0},
     'composer.lock': {count: 0},
 };
@@ -29,7 +29,6 @@ const recursive = function(path) {
             }
 
             if (fs.lstatSync(curPath).isDirectory()) { // recurse
-                // console.log(curPath);
                 if(!removeFile){
                     recursive(curPath);
                 }
