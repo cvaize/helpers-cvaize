@@ -2,7 +2,7 @@ const fs = require('fs');
 const Path = require('path');
 const rimraf = require("rimraf");
 
-const startFolder = '/var/www/sites';
+const startFolder = 'C:\\OpenServer\\domains';
 const removeFiles = {
     'node_modules': {count: 0},
     'vendor': {count: 0, if(curPath, files){

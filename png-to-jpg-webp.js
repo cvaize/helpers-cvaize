@@ -67,6 +67,6 @@ const recursive = async function(path) {
     }
 };
 
-recursive('/var/www/sites/evrazen.ru/public/img/catalog/volleyball');
+recursive('C:\\OpenServer\\domains\\evrazen.ru\\public\\img\\catalog\\race\\motorcycle-pants');
 
 
